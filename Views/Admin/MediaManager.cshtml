@@ -1,0 +1,144 @@
+﻿@{
+    ViewBag.Title = "MediaManager";
+    WebGrid grid = new WebGrid(ViewBag.Item, rowsPerPage: 5);
+}
+
+<nav class="navbar navbar-default">
+    <div class="col-sm-10 offset-sm-2">
+        <h3>MEDIA MANAGEMENT</h3>
+    </div>
+    <div class="container-fluid">
+        <div class="col-sm-12">
+            @{
+                if (ViewBag.Item != null)
+                {
+                    @grid.GetHtml(
+                         tableStyle: "table table-responsive table-border",
+                           mode: WebGridPagerModes.All,
+                             firstText: "<< First",
+                             previousText: "< Prev",
+                             nextText: "Next >",
+                             lastText: "Last >>",
+                         columns: grid.Columns(
+                           grid.Column(columnName: "MediaID", header: "MediaID"),
+                           grid.Column(columnName: "MediaTitle", header: "Title"),
+                           grid.Column(columnName: "PublishYear", header: "Year Published"),
+                           grid.Column(columnName: "Budget", header: "Budget"),
+                           grid.Column(header: "Actions",
+                                      format:
+                                                                                @<text>
+                                                                                    @Html.ActionLink(linkText: "DELETE", actionName: "DeleteMedia", routeValues: new { mediaID = @item.MediaID })
+                                                                                </text>
+            )))
+
+                    <p>Search Results: @ViewBag.ItemCount</p>
+                    <p>@ViewBag.DeleteResult</p>
+                }
+            }
+        </div>
+    </div>
+</nav>
+<nav class="navbar navbar-default">
+    <div class="container-fluid">
+        <div class="col-sm-10 offset-sm-2">
+            <a class="navbar-brand">ADD NEW MEDIA</a>
+        </div>
+        <div class="collapse navbar-collapse">
+            @using (Html.BeginForm("AddMedia", "Admin", FormMethod.Post))
+            {
+                <div class="form-group row">
+                    <div class="col-sm-10">
+                        <input class="form-control" type="text" name="mediaTitle" placeholder="Title" required="" />
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-sm-10">
+                        <input class="form-control" type="text" name="genre" placeholder="Genre" />
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-sm-10">
+                        <input class="form-control" type="text" name="director" placeholder="Director" />
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-sm-10">
+                        <input class="form-control" type="text" name="language" placeholder="Language" />
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-sm-10">
+                        <input class="form-control" type="text" name="publishYear" placeholder="Year Published" required="" />
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-sm-10">
+                        <input class="form-control" type="text" name="budget" placeholder="Budget" />
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-sm-10 offset-sm-2">
+                        <button type="submit" class="btn btn-primary">ADD MEDIA</button>
+                    </div>
+                </div>
+                <p>@ViewBag.AddResult</p>
+            }
+        </div>
+    </div>
+</nav>
+<nav class="navbar navbar-default">
+    <div class="container-fluid">
+        <div class="col-sm-10 offset-sm-2">
+            <a href="#" class="navbar-brand">UPDATE MEDIA</a>
+        </div>
+        <div class="collapse navbar-collapse">
+            @using (Html.BeginForm("UpdateMedia", "Admin", FormMethod.Post))
+            {
+                <div class="form-group row">
+                    <div class="col-sm-10">
+                        <input class="form-control" type="text" name="mediaID" placeholder="Media ID" required="" />
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-sm-10">
+                        <input class="form-control" type="text" name="mediaTitle" placeholder="Title" required="" />
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-sm-10">
+                        <input class="form-control" type="text" name="genre" placeholder="Genre" />
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-sm-10">
+                        <input class="form-control" type="text" name="director" placeholder="Director" />
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-sm-10">
+                        <input class="form-control" type="text" name="language" placeholder="Language" />
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-sm-10">
+                        <input class="form-control" type="text" name="publishYear" placeholder="Year Published" required="" />
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-sm-10">
+                        <input class="form-control" type="text" name="budget" placeholder="Budget" />
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-sm-10 offset-sm-2">
+                        <button type="submit" class="btn btn-primary">UPDATE MEDIA</button>
+                    </div>
+                </div>
+                <p>@ViewBag.UpdateResult</p>
+            }
+        </div>
+    </div>
+</nav>
+<script src="~/Scripts/jquery-3.3.1.js"></script>
+<script src="~/Scripts/bootstrap.min.js"></script>
+

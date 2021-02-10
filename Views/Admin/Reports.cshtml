@@ -1,0 +1,83 @@
+﻿
+@{
+    ViewBag.Title = "Reports";
+    WebGrid borrowGrid= new WebGrid(ViewBag.BorrowList, rowsPerPage: 5);
+    WebGrid reserveGrid = new WebGrid(ViewBag.ReserveList, rowsPerPage: 5);
+}
+
+<nav class="navbar navbar-default">
+    <div class="container-fluid">
+        <div class="form-group row">
+            <div class="col-sm-6 offset-sm-2">
+                <h3>Reports</h3>
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="col-sm-6 offset-sm-2">
+                @Html.DropDownList("Reports", null, new { @class = "form-control", onchange = "document.location.href='/Admin/Reports?value='+this.value;" })
+            </div>
+        </div>
+    </div>
+</nav>
+
+<nav class="navbar navbar-default">
+    
+    <div class="container-fluid">
+        <div>
+            @{
+                if (ViewBag.BorrowList != null)
+                {
+                    <div class="col-sm-10">
+                        <h3>Borrowed Media</h3>
+                    </div>
+                    @borrowGrid.GetHtml(
+                             tableStyle: "table table-responsive table-border",
+                               mode: WebGridPagerModes.All,
+                                 firstText: "<< First",
+                                 previousText: "< Prev",
+                                 nextText: "Next >",
+                                 lastText: "Last >>",
+                         columns: borrowGrid.Columns(
+                           borrowGrid.Column(columnName: "BID", header: "Borrow Code"),
+                           borrowGrid.Column(columnName: "UID", header: "User ID"),
+                           borrowGrid.Column(columnName: "MediaID", header: "Media ID"),
+                           borrowGrid.Column(columnName: "MediaTitle", header: "Title"),
+                           borrowGrid.Column(columnName: "BorrowDate", header: "Date Borrowed"),
+                           borrowGrid.Column(columnName: "ReturnDate", header: "Due Date"),
+                           borrowGrid.Column(columnName: "ActualReturnDate", header: "Date Returned"),
+                           borrowGrid.Column(columnName: "LateFee", header: "Penalty")
+                           ))
+                    <p>Total Media Borrowed: @ViewBag.BorrowListCount</p>
+                }
+            }
+        </div>
+        <div>
+            @{
+                if (ViewBag.ReserveList != null)
+                {
+                    <div class="col-sm-10">
+                        <h3>Media Reservations</h3>
+                    </div>
+                    @reserveGrid.GetHtml(
+                         tableStyle: "table table-responsive table-border",
+                           mode: WebGridPagerModes.All,
+                             firstText: "<< First",
+                             previousText: "< Prev",
+                             nextText: "Next >",
+                             lastText: "Last >>",
+                         columns: reserveGrid.Columns(
+                           reserveGrid.Column(columnName: "RID", header: "Reservation Code"),
+                           reserveGrid.Column(columnName: "UID", header: "User ID"),
+                           reserveGrid.Column(columnName: "UserName", header: "Name"),
+                           reserveGrid.Column(columnName: "MediaID", header: "Media ID"),
+                           reserveGrid.Column(columnName: "MediaTitle", header: "Title"),
+                           reserveGrid.Column(columnName: "ReservedDate", header: "Date Reserved")
+                           ))
+                    <p>Total Reservations: @ViewBag.ReserveListCount</p>
+                }
+            }
+        </div>
+    </div>
+</nav>
+<script src="~/Scripts/jquery-3.3.1.js"></script>
+<script src="~/Scripts/bootstrap.min.js"></script>

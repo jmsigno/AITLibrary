@@ -1,0 +1,731 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://tempuri.org/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" targetNamespace="http://tempuri.org/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://tempuri.org/">
+      <s:element name="GetAllMedia">
+        <s:complexType />
+      </s:element>
+      <s:element name="GetAllMediaResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetAllMediaResult" type="tns:ArrayOfWMediaDTO" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfWMediaDTO">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="WMediaDTO" nillable="true" type="tns:WMediaDTO" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="WMediaDTO">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="mediaID" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="mediaTitle" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="genre" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="director" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="language" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="publishYear" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="budget" type="s:decimal" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="KeySearch">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="search" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="KeySearchResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="KeySearchResult" type="tns:ArrayOfWMediaDTO" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="IdSearch">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="id" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="IdSearchResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="IdSearchResult" type="tns:ArrayOfWMediaDTO" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="TitleSearch">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="title" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="TitleSearchResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="TitleSearchResult" type="tns:ArrayOfWMediaDTO" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="RetrieveMedia">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="mediaID" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="RetrieveMediaResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="RetrieveMediaResult" type="tns:WMediaDTO" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="MyBorrowList">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="userID" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="MyBorrowListResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="MyBorrowListResult" type="tns:ArrayOfWBorrowDTO" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfWBorrowDTO">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="WBorrowDTO" nillable="true" type="tns:WBorrowDTO" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="WBorrowDTO">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="BID" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="UID" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="MediaID" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="MediaTitle" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="BorrowDate" type="s:dateTime" />
+          <s:element minOccurs="1" maxOccurs="1" name="ReturnDate" type="s:dateTime" />
+          <s:element minOccurs="1" maxOccurs="1" name="ActualReturnDate" type="s:dateTime" />
+          <s:element minOccurs="1" maxOccurs="1" name="LateFee" type="s:decimal" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="BorrowMedia">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="userID" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="mediaID" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="BorrowMediaResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="BorrowMediaResult" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="MyReservations">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="userID" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="MyReservationsResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="MyReservationsResult" type="tns:ArrayOfWReservationsDTO" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfWReservationsDTO">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="WReservationsDTO" nillable="true" type="tns:WReservationsDTO" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="WReservationsDTO">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="UserName" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="RID" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="UID" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="MediaID" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="MediaTitle" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="ReservedDate" type="s:dateTime" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="ReserveMedia">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="userID" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="mediaID" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ReserveMediaResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="ReserveMediaResult" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="CancelReservation">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="userID" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="mediaID" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="CancelReservationResponse">
+        <s:complexType />
+      </s:element>
+      <s:element name="DeleteMedia">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="mediaId" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="DeleteMediaResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="DeleteMediaResult" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ReturnMedia">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="userID" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="mediaID" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ReturnMediaResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="ReturnMediaResult" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="InsertMedia">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="media" type="tns:WMediaDTO" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="InsertMediaResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="InsertMediaResult" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="UpdateMedia">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="media" type="tns:WMediaDTO" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="UpdateMediaResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="UpdateMediaResult" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="BorrowLists">
+        <s:complexType />
+      </s:element>
+      <s:element name="BorrowListsResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="BorrowListsResult" type="tns:ArrayOfWBorrowDTO" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ReserveList">
+        <s:complexType />
+      </s:element>
+      <s:element name="ReserveListResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ReserveListResult" type="tns:ArrayOfWReservationsDTO" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+    </s:schema>
+  </wsdl:types>
+  <wsdl:message name="GetAllMediaSoapIn">
+    <wsdl:part name="parameters" element="tns:GetAllMedia" />
+  </wsdl:message>
+  <wsdl:message name="GetAllMediaSoapOut">
+    <wsdl:part name="parameters" element="tns:GetAllMediaResponse" />
+  </wsdl:message>
+  <wsdl:message name="KeySearchSoapIn">
+    <wsdl:part name="parameters" element="tns:KeySearch" />
+  </wsdl:message>
+  <wsdl:message name="KeySearchSoapOut">
+    <wsdl:part name="parameters" element="tns:KeySearchResponse" />
+  </wsdl:message>
+  <wsdl:message name="IdSearchSoapIn">
+    <wsdl:part name="parameters" element="tns:IdSearch" />
+  </wsdl:message>
+  <wsdl:message name="IdSearchSoapOut">
+    <wsdl:part name="parameters" element="tns:IdSearchResponse" />
+  </wsdl:message>
+  <wsdl:message name="TitleSearchSoapIn">
+    <wsdl:part name="parameters" element="tns:TitleSearch" />
+  </wsdl:message>
+  <wsdl:message name="TitleSearchSoapOut">
+    <wsdl:part name="parameters" element="tns:TitleSearchResponse" />
+  </wsdl:message>
+  <wsdl:message name="RetrieveMediaSoapIn">
+    <wsdl:part name="parameters" element="tns:RetrieveMedia" />
+  </wsdl:message>
+  <wsdl:message name="RetrieveMediaSoapOut">
+    <wsdl:part name="parameters" element="tns:RetrieveMediaResponse" />
+  </wsdl:message>
+  <wsdl:message name="MyBorrowListSoapIn">
+    <wsdl:part name="parameters" element="tns:MyBorrowList" />
+  </wsdl:message>
+  <wsdl:message name="MyBorrowListSoapOut">
+    <wsdl:part name="parameters" element="tns:MyBorrowListResponse" />
+  </wsdl:message>
+  <wsdl:message name="BorrowMediaSoapIn">
+    <wsdl:part name="parameters" element="tns:BorrowMedia" />
+  </wsdl:message>
+  <wsdl:message name="BorrowMediaSoapOut">
+    <wsdl:part name="parameters" element="tns:BorrowMediaResponse" />
+  </wsdl:message>
+  <wsdl:message name="MyReservationsSoapIn">
+    <wsdl:part name="parameters" element="tns:MyReservations" />
+  </wsdl:message>
+  <wsdl:message name="MyReservationsSoapOut">
+    <wsdl:part name="parameters" element="tns:MyReservationsResponse" />
+  </wsdl:message>
+  <wsdl:message name="ReserveMediaSoapIn">
+    <wsdl:part name="parameters" element="tns:ReserveMedia" />
+  </wsdl:message>
+  <wsdl:message name="ReserveMediaSoapOut">
+    <wsdl:part name="parameters" element="tns:ReserveMediaResponse" />
+  </wsdl:message>
+  <wsdl:message name="CancelReservationSoapIn">
+    <wsdl:part name="parameters" element="tns:CancelReservation" />
+  </wsdl:message>
+  <wsdl:message name="CancelReservationSoapOut">
+    <wsdl:part name="parameters" element="tns:CancelReservationResponse" />
+  </wsdl:message>
+  <wsdl:message name="DeleteMediaSoapIn">
+    <wsdl:part name="parameters" element="tns:DeleteMedia" />
+  </wsdl:message>
+  <wsdl:message name="DeleteMediaSoapOut">
+    <wsdl:part name="parameters" element="tns:DeleteMediaResponse" />
+  </wsdl:message>
+  <wsdl:message name="ReturnMediaSoapIn">
+    <wsdl:part name="parameters" element="tns:ReturnMedia" />
+  </wsdl:message>
+  <wsdl:message name="ReturnMediaSoapOut">
+    <wsdl:part name="parameters" element="tns:ReturnMediaResponse" />
+  </wsdl:message>
+  <wsdl:message name="InsertMediaSoapIn">
+    <wsdl:part name="parameters" element="tns:InsertMedia" />
+  </wsdl:message>
+  <wsdl:message name="InsertMediaSoapOut">
+    <wsdl:part name="parameters" element="tns:InsertMediaResponse" />
+  </wsdl:message>
+  <wsdl:message name="UpdateMediaSoapIn">
+    <wsdl:part name="parameters" element="tns:UpdateMedia" />
+  </wsdl:message>
+  <wsdl:message name="UpdateMediaSoapOut">
+    <wsdl:part name="parameters" element="tns:UpdateMediaResponse" />
+  </wsdl:message>
+  <wsdl:message name="BorrowListsSoapIn">
+    <wsdl:part name="parameters" element="tns:BorrowLists" />
+  </wsdl:message>
+  <wsdl:message name="BorrowListsSoapOut">
+    <wsdl:part name="parameters" element="tns:BorrowListsResponse" />
+  </wsdl:message>
+  <wsdl:message name="ReserveListSoapIn">
+    <wsdl:part name="parameters" element="tns:ReserveList" />
+  </wsdl:message>
+  <wsdl:message name="ReserveListSoapOut">
+    <wsdl:part name="parameters" element="tns:ReserveListResponse" />
+  </wsdl:message>
+  <wsdl:portType name="MediaManagementServiceSoap">
+    <wsdl:operation name="GetAllMedia">
+      <wsdl:input message="tns:GetAllMediaSoapIn" />
+      <wsdl:output message="tns:GetAllMediaSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="KeySearch">
+      <wsdl:input message="tns:KeySearchSoapIn" />
+      <wsdl:output message="tns:KeySearchSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="IdSearch">
+      <wsdl:input message="tns:IdSearchSoapIn" />
+      <wsdl:output message="tns:IdSearchSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="TitleSearch">
+      <wsdl:input message="tns:TitleSearchSoapIn" />
+      <wsdl:output message="tns:TitleSearchSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="RetrieveMedia">
+      <wsdl:input message="tns:RetrieveMediaSoapIn" />
+      <wsdl:output message="tns:RetrieveMediaSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="MyBorrowList">
+      <wsdl:input message="tns:MyBorrowListSoapIn" />
+      <wsdl:output message="tns:MyBorrowListSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="BorrowMedia">
+      <wsdl:input message="tns:BorrowMediaSoapIn" />
+      <wsdl:output message="tns:BorrowMediaSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="MyReservations">
+      <wsdl:input message="tns:MyReservationsSoapIn" />
+      <wsdl:output message="tns:MyReservationsSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ReserveMedia">
+      <wsdl:input message="tns:ReserveMediaSoapIn" />
+      <wsdl:output message="tns:ReserveMediaSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="CancelReservation">
+      <wsdl:input message="tns:CancelReservationSoapIn" />
+      <wsdl:output message="tns:CancelReservationSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="DeleteMedia">
+      <wsdl:input message="tns:DeleteMediaSoapIn" />
+      <wsdl:output message="tns:DeleteMediaSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ReturnMedia">
+      <wsdl:input message="tns:ReturnMediaSoapIn" />
+      <wsdl:output message="tns:ReturnMediaSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="InsertMedia">
+      <wsdl:input message="tns:InsertMediaSoapIn" />
+      <wsdl:output message="tns:InsertMediaSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="UpdateMedia">
+      <wsdl:input message="tns:UpdateMediaSoapIn" />
+      <wsdl:output message="tns:UpdateMediaSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="BorrowLists">
+      <wsdl:input message="tns:BorrowListsSoapIn" />
+      <wsdl:output message="tns:BorrowListsSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ReserveList">
+      <wsdl:input message="tns:ReserveListSoapIn" />
+      <wsdl:output message="tns:ReserveListSoapOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="MediaManagementServiceSoap" type="tns:MediaManagementServiceSoap">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="GetAllMedia">
+      <soap:operation soapAction="http://tempuri.org/GetAllMedia" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="KeySearch">
+      <soap:operation soapAction="http://tempuri.org/KeySearch" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="IdSearch">
+      <soap:operation soapAction="http://tempuri.org/IdSearch" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="TitleSearch">
+      <soap:operation soapAction="http://tempuri.org/TitleSearch" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RetrieveMedia">
+      <soap:operation soapAction="http://tempuri.org/RetrieveMedia" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="MyBorrowList">
+      <soap:operation soapAction="http://tempuri.org/MyBorrowList" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="BorrowMedia">
+      <soap:operation soapAction="http://tempuri.org/BorrowMedia" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="MyReservations">
+      <soap:operation soapAction="http://tempuri.org/MyReservations" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ReserveMedia">
+      <soap:operation soapAction="http://tempuri.org/ReserveMedia" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CancelReservation">
+      <soap:operation soapAction="http://tempuri.org/CancelReservation" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DeleteMedia">
+      <soap:operation soapAction="http://tempuri.org/DeleteMedia" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ReturnMedia">
+      <soap:operation soapAction="http://tempuri.org/ReturnMedia" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="InsertMedia">
+      <soap:operation soapAction="http://tempuri.org/InsertMedia" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateMedia">
+      <soap:operation soapAction="http://tempuri.org/UpdateMedia" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="BorrowLists">
+      <soap:operation soapAction="http://tempuri.org/BorrowLists" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ReserveList">
+      <soap:operation soapAction="http://tempuri.org/ReserveList" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="MediaManagementServiceSoap12" type="tns:MediaManagementServiceSoap">
+    <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="GetAllMedia">
+      <soap12:operation soapAction="http://tempuri.org/GetAllMedia" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="KeySearch">
+      <soap12:operation soapAction="http://tempuri.org/KeySearch" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="IdSearch">
+      <soap12:operation soapAction="http://tempuri.org/IdSearch" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="TitleSearch">
+      <soap12:operation soapAction="http://tempuri.org/TitleSearch" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RetrieveMedia">
+      <soap12:operation soapAction="http://tempuri.org/RetrieveMedia" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="MyBorrowList">
+      <soap12:operation soapAction="http://tempuri.org/MyBorrowList" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="BorrowMedia">
+      <soap12:operation soapAction="http://tempuri.org/BorrowMedia" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="MyReservations">
+      <soap12:operation soapAction="http://tempuri.org/MyReservations" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ReserveMedia">
+      <soap12:operation soapAction="http://tempuri.org/ReserveMedia" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CancelReservation">
+      <soap12:operation soapAction="http://tempuri.org/CancelReservation" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DeleteMedia">
+      <soap12:operation soapAction="http://tempuri.org/DeleteMedia" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ReturnMedia">
+      <soap12:operation soapAction="http://tempuri.org/ReturnMedia" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="InsertMedia">
+      <soap12:operation soapAction="http://tempuri.org/InsertMedia" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateMedia">
+      <soap12:operation soapAction="http://tempuri.org/UpdateMedia" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="BorrowLists">
+      <soap12:operation soapAction="http://tempuri.org/BorrowLists" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ReserveList">
+      <soap12:operation soapAction="http://tempuri.org/ReserveList" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="MediaManagementService">
+    <wsdl:port name="MediaManagementServiceSoap" binding="tns:MediaManagementServiceSoap">
+      <soap:address location="http://localhost:57673/MediaServices/MediaManagementService.asmx" />
+    </wsdl:port>
+    <wsdl:port name="MediaManagementServiceSoap12" binding="tns:MediaManagementServiceSoap12">
+      <soap12:address location="http://localhost:57673/MediaServices/MediaManagementService.asmx" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

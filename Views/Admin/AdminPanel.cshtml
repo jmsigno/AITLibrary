@@ -1,0 +1,125 @@
+﻿@{
+    ViewBag.Title = "AdminPanel";
+    WebGrid userGrid = new WebGrid(ViewBag.UserList, rowsPerPage: 5);
+}
+
+<div class="container">
+    <h4><b>Welcome back @Session["validUsername"] </b></h4>
+    <nav class="navbar navbar-default">
+        <div class="col-sm-10 offset-sm-2">
+            <h3>USER MANAGEMENT</h3>
+        </div>
+        <div class="container-fluid">
+            <div class="col-sm-12">
+                @{
+                    if (ViewBag.UserList != null)
+                    {
+                        @userGrid.GetHtml(
+                                 tableStyle: "table table-responsive table-border",
+                                   mode: WebGridPagerModes.All,
+                                     firstText: "<< First",
+                                     previousText: "< Prev",
+                                     nextText: "Next >",
+                                     lastText: "Last >>",
+                             columns: userGrid.Columns(
+                               userGrid.Column(columnName: "UID", header: "User ID"),
+                               userGrid.Column(columnName: "UserName", header: "Username"),
+                               userGrid.Column(columnName: "UserLevel", header: "Level"),
+                               userGrid.Column(columnName: "UserEmail", header: "Email"),
+                               userGrid.Column(header: "Actions",
+                                          format:
+                                                                    @<text>
+                                                                        @Html.ActionLink(linkText: "DELETE", actionName: "DeleteUser", routeValues: new { userID = @item.UID })
+                                                                    </text>
+                 )))
+                        <p>Total Users: @ViewBag.UserCount</p>
+                        <p>@ViewBag.DeleteUserResult</p>
+                    }
+                }
+            </div>
+        </div>
+    </nav>
+    <nav class="navbar navbar-default">
+        <div class="container-fluid">
+            <div class="col-sm-10 offset-sm-2">
+                <a class="navbar-brand">ADD NEW USER</a>
+            </div>
+            <div class="collapse navbar-collapse">
+                @using (Html.BeginForm("AddUser", "Admin", FormMethod.Post))
+                {
+                    <div class="form-group row">
+                        <div class="col-sm-10">
+                            <input class="form-control", type="text" name="UserName" placeholder="Enter New Username" required="" />
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-sm-10">
+                            <input class="form-control", type="text" name="Password" placeholder="Enter New Password" />
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-sm-10">
+                            <input class="form-control", type="text" name="UserLevel" placeholder="Enter New Level" />
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-sm-10">
+                            <input class="form-control", type="text" name="UserEmail" placeholder="Enter New Email" />
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-sm-10 offset-sm-2">
+                            <button type="submit" class="btn btn-primary">ADD USER</button>
+                        </div>
+                    </div>
+                    <p>@ViewBag.AddUserResult</p>
+                }
+            </div>
+        </div>
+    </nav>
+    <nav class="navbar navbar-default">
+        <div class="container-fluid">
+            <div class="col-sm-10 offset-sm-2">
+                <a class="navbar-brand">UPDATE USER DETAILS</a>
+            </div>
+            <div class="collapse navbar-collapse">
+                @using (Html.BeginForm("UpdateUser", "Admin", FormMethod.Post))
+                {
+                    <div class="form-group row">
+                        <div class="col-sm-10">
+                            <input class="form-control", type="text" name="UID" placeholder="Enter User ID" required="" />
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-sm-10">
+                            <input class="form-control", type="text" name="UserName" placeholder="Enter New Username" required="" />
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-sm-10">
+                            <input class="form-control", type="text" name="Password" placeholder="Enter New Password" />
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-sm-10">
+                            <input class="form-control", type="text" name="UserLevel" placeholder="Enter New Level" />
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-sm-10">
+                            <input class="form-control", type="text" name="UserEmail" placeholder="Enter New Email" />
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-sm-10 offset-sm-2">
+                            <button type="submit" class="btn btn-primary">UPDATE USER</button>
+                        </div>
+                    </div>
+                    <p>@ViewBag.UpdateUserResult</p>
+                }
+            </div>
+        </div>
+    </nav>
+</div>
+<script src="~/Scripts/jquery-3.3.1.js"></script>
+<script src="~/Scripts/bootstrap.min.js"></script>

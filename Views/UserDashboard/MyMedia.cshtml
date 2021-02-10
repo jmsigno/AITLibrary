@@ -1,0 +1,93 @@
+﻿
+
+
+@{
+    ViewBag.Title = "Dashboard";
+    WebGrid borrowGrid = new WebGrid(ViewBag.BorrowList, rowsPerPage: 5);
+    WebGrid reserveGrid = new WebGrid(ViewBag.ReserveList, rowsPerPage: 5);
+}
+
+
+<div><p>Welcome @Session["validUsername"]</p></div>
+<div class="container">
+    <nav class="navbar navbar-default">
+        <div class="col-sm-10 offset-sm-2">
+            <h3>Borrowed Media</h3>
+        </div>
+        <div class="container-fluid">
+            <div class="col-sm-12">
+                @{
+                    if (ViewBag.BorrowList != null)
+                    {
+                        @borrowGrid.GetHtml(
+                                 tableStyle: "table table-responsive table-border",
+                                   mode: WebGridPagerModes.All,
+                                     firstText: "<< First",
+                                     previousText: "< Prev",
+                                     nextText: "Next >",
+                                     lastText: "Last >>",
+                             columns: borrowGrid.Columns(
+                               borrowGrid.Column(columnName: "BID", header: "Borrow Code"),
+                               borrowGrid.Column(columnName: "MediaID", header: "Media ID"),
+                               borrowGrid.Column(columnName: "MediaTitle", header: "Title"),
+                               borrowGrid.Column(columnName: "BorrowDate", header: "Date Borrowed"),
+                               borrowGrid.Column(columnName: "ReturnDate", header: "Due Date"),
+                               borrowGrid.Column(columnName: "LateFee", header: "Late Fee"),
+                               borrowGrid.Column(header: "Actions",
+                                          format:
+                                                                                                            @<text>
+                                                                                                                @Html.ActionLink(linkText: "RETURN", actionName: "UserAction", routeValues: new { command = "RETURN", mediaID = @item.MediaID })
+                                                                                                            </text>
+  )))
+                        <p>Total Borrowed Media: @ViewBag.BorrowCount</p>
+                        <p>@ViewBag.ReturnResult</p>
+                    }
+                }
+            </div>
+        </div>
+    </nav>
+    <nav class="navbar navbar-default">
+        <div class="col-sm-10 offset-sm-2">
+            <h3>My Reservations</h3>
+        </div>
+        <div class="container-fluid">
+            <div class="col-sm-12">
+                @{
+                    if (ViewBag.ReserveList != null)
+                    {
+                        @reserveGrid.GetHtml(
+                                 tableStyle: "table table-responsive table-border",
+                                   mode: WebGridPagerModes.All,
+                                     firstText: "<< First",
+                                     previousText: "< Prev",
+                                     nextText: "Next >",
+                                     lastText: "Last >>",
+                                    columns: reserveGrid.Columns(
+                                      reserveGrid.Column(columnName: "RID", header: "Reservation ID"),
+                                      reserveGrid.Column(columnName: "MediaID", header: "Media ID"),
+                                      reserveGrid.Column(columnName: "MediaTitle", header: "Title"),
+                                      reserveGrid.Column(columnName: "ReservedDate", header: "Date Reserved"),
+                                      reserveGrid.Column(header: "Actions",
+                                                 format:
+                                                                                                                @<text>
+                                                                                                                    @Html.ActionLink(linkText: "BORROW", actionName: "UserAction", routeValues: new { command = "BORROW", mediaID = @item.MediaID })
+                                                                                                                    |
+                                                                                                                    @Html.ActionLink(linkText: "CANCEL", actionName: "UserAction", routeValues: new { command = "CANCEL", mediaID = @item.MediaID })
+
+                                                                                                                </text>
+                )))
+                        <p>Total Reserved media: @ViewBag.ReserveCount</p>
+                        <p>@ViewBag.BorrowResult</p>
+                    }
+                }
+            </div>
+        </div>
+    </nav>
+    @*<div><input type="button" value="HOME" onclick="window.location.href='@Url.Action("Library", "Media")'" /></div>
+        @using (Html.BeginForm("Library", "Media"))
+        {
+            <button type="submit">HOME</button>
+        }*@
+</div>
+<script src="~/Scripts/jquery-3.3.1.js"></script>
+<script src="~/Scripts/bootstrap.min.js"></script>

@@ -1,0 +1,101 @@
+﻿
+
+@{
+    ViewBag.Title = "Library";
+    WebGrid grid = new WebGrid(ViewBag.Item, rowsPerPage: 5);
+}
+
+<div class="container">
+    <h3>Welcome @Session["validUsername"]</h3>
+    <nav class="navbar navbar-default">
+        <div class="col-sm-10 offset-sm-2">
+            <h3>Media Library</h3>
+        </div>
+        <div class="container-fluid">
+            <div class="col-sm-12">
+                @using (Html.BeginForm("ViewAll", "Media", FormMethod.Post))
+                {
+                    <div class="form-group row">
+                        <label for="inputEmail" class="col-sm-2 col-form-label">Show All Media</label>
+                        <div class="col-sm-10">
+                            <button type="submit" value="Search" class="btn btn-primary">BROWSE</button>
+                        </div>
+                    </div>
+                }
+                @using (Html.BeginForm("SearchByKeyword", "Media", FormMethod.Post))
+                {
+                    <div class="form-group row">
+                        <label for="inputEmail" class="col-sm-2 col-form-label">Search By Keyword</label>
+                        <div class="col-sm-2">
+                            <input class="form-control" type="text" name="search" placeholder="ID, Title, Year " />
+                        </div>
+                        <button type="submit" value="search" class="btn btn-primary">SEARCH</button>
+                    </div>
+
+                }
+
+                @using (Html.BeginForm("SearchByID", "Media", FormMethod.Post))
+                {
+                    <div class="form-group row">
+                        <label for="inputEmail" class="col-sm-2 col-form-label">Search By ID</label>
+                        <div class="col-sm-2">
+                            <input class="form-control" type="text" name="search" placeholder="Media ID" />
+                        </div>
+                        <button type="submit" value="search" class="btn btn-primary">SEARCH</button>
+                    </div>
+
+
+                }
+                @using (Html.BeginForm("SearchByTitle", "Media", FormMethod.Post))
+                {
+                    <div class="form-group row">
+                        <label for="inputEmail" class="col-sm-2 col-form-label">Search By Title</label>
+                        <div class="col-sm-2">
+                            <input class="form-control" type="text" name="search" placeholder="Title" />
+                        </div>
+                        <button type="submit" value="search" class="btn btn-primary">SEARCH</button>
+                    </div>
+                }
+            </div>
+        </div>
+    </nav>
+    <nav class="navbar navbar-default">
+        <div class="col-sm-10 offset-sm-2">
+            <h4>Search Results</h4>
+        </div>
+        <div class="container-fluid">
+            <div class="col-sm-12">
+                @{
+                    if (ViewBag.Item != null)
+                    {
+                        @grid.GetHtml(
+                             tableStyle: "table table-responsive table-border",
+                               mode: WebGridPagerModes.All,
+                                 firstText: "<< First",
+                                 previousText: "< Prev",
+                                 nextText: "Next >",
+                                 lastText: "Last >>",
+                             columns: grid.Columns(
+                               grid.Column(columnName: "MediaID", header: "MediaID"),
+                               grid.Column(columnName: "MediaTitle", header: "Title"),
+                               grid.Column(columnName: "PublishYear", header: "Year Published"),
+                               grid.Column(columnName: "Budget", header: "Budget"),
+                               grid.Column(header: "Actions",
+                                          format:
+                                                    @<text>
+                                                        @Html.ActionLink(linkText: "BORROW", actionName: "Action", routeValues: new { command = "BORROW", mediaID = @item.MediaID })
+                                                        |
+                                                        @Html.ActionLink(linkText: "RESERVE", actionName: "Action", routeValues: new { command = "RESERVE", mediaID = @item.MediaID })
+                                                    </text>
+)))
+                        <p>Search Results: @ViewBag.ItemCount</p>
+                    }
+                }
+                <p>@ViewBag.ReserveResult</p>
+                <p>@ViewBag.BorrowResult</p>
+            </div>
+        </div>
+    </nav>
+</div>
+<script src="~/Scripts/jquery-3.3.1.js"></script>
+<script src="~/Scripts/bootstrap.min.js"></script>
